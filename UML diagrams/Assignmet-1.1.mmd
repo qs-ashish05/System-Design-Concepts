@@ -1,0 +1,120 @@
+---
+config:
+  layout: elk
+---
+classDiagram
+    direction TB
+
+    class AppCompatActivity {
+    }
+
+    class AddItemActivity {
+        -EditText title
+        -EditText maker
+        -EditText description
+        -EditText length
+        -EditText width
+        -EditText height
+        -ImageView photo
+        -Bitmap image
+        -int REQUEST_CODE
+        -ItemList item_list
+        -Context context
+        +onCreate(Bundle)
+        +saveItem(View)
+        +addPhoto(View)
+        +deletePhoto(View)
+        +onActivityResult(int, int, Intent)
+    }
+
+    class EditItemActivity {
+        -ItemList item_list
+        -Item item
+        -Context context
+        -Bitmap image
+        -int REQUEST_CODE
+        -EditText title
+        -EditText maker
+        -EditText description
+        -EditText length
+        -EditText width
+        -EditText height
+        -EditText borrower
+        -TextView borrower_tv
+        -Switch status
+        -ImageView photo
+        +onCreate(Bundle)
+        +addPhoto(View)
+        +deletePhoto(View)
+        +onActivityResult(int, int, Intent)
+        +deleteItem(View)
+        +saveItem(View)
+        +toggleSwitch(View)
+    }
+
+    class ItemList {
+        -ArrayList~Item~ items
+        -String FILENAME
+        +ItemList()
+        +setItems(ArrayList~Item~)
+        +getItems() ArrayList~Item~
+        +addItem(Item)
+        +deleteItem(Item)
+        +getItem(int) Item
+        +getIndex(Item) int
+        +getSize() int
+        +loadItems(Context)
+        +saveItems(Context)
+        +filterItemsByStatus(String) ArrayList~Item~
+    }
+
+    class Item {
+        -String title
+        -String maker
+        -String description
+        -Dimensions dimensions
+        -String status
+        -String borrower
+        #Bitmap image
+        #String image_base64
+        -String id
+        +Item(String, String, String, Dimensions, Bitmap, String)
+        +getId() String
+        +setId()
+        +updateId(String)
+        +getTitle() String
+        +setTitle(String)
+        +getMaker() String
+        +setMaker(String)
+        +getDescription() String
+        +setDescription(String)
+        +getDimensions() Dimensions
+        +setDimensions(Dimensions)
+        +getStatus() String
+        +setStatus(String)
+        +getBorrower() String
+        +setBorrower(String)
+        +addImage(Bitmap)
+        +getImage() Bitmap
+    }
+
+    class Dimensions {
+        -String length
+        -String width
+        -String height
+        +Dimensions(String, String, String)
+        +getLength() String
+        +getWidth() String
+        +getHeight() String
+        +getDimensions() String
+        +setDimensions(String, String, String)
+    }
+    AddItemActivity --|> AppCompatActivity : extends
+    EditItemActivity --|> AppCompatActivity : extends
+    ItemList "1" o-- "0..*" Item : aggregates
+    Item "1" *-- "1" Dimensions : composed of
+    AddItemActivity ..> Item : <<create>>
+    AddItemActivity ..> ItemList : <<use>>
+    EditItemActivity ..> Item : <<create>>
+    EditItemActivity ..> ItemList : <<use>>
+    EditItemActivity ..> Dimensions : <<create>>
