@@ -1,0 +1,93 @@
+sequenceDiagram
+    actor Customer
+    participant Website
+    participant Cart
+    participant FlightDB as Flight Database
+    participant TicketDB as Ticket Database
+    participant PaymentService as Payment Service
+
+    %% Step 1: Search for Flights
+    Customer->>Website: Enter departure location, arrival location & date
+    activate Website
+
+    Website->>FlightDB: searchFlights(departure_location, arrival_location, date)
+    activate FlightDB
+    FlightDB-->>Website: Return list of available Flight objects
+    deactivate FlightDB
+
+    Website-->>Customer: Display available flights
+    deactivate Website
+
+    %% Step 2: Select Flight
+    Customer->>Website: Select desired flight
+    activate Website
+
+    Website->>FlightDB: getFlightDetails(flight_ID)
+    activate FlightDB
+    FlightDB-->>Website: Return Flight details (flight_ID, departure, arrival)
+    deactivate FlightDB
+
+    Website-->>Customer: Display selected flight details
+    deactivate Website
+
+    %% Step 3: Add to Cart
+    Customer->>Website: Add flight to cart
+    activate Website
+
+    Website->>Cart: addFlight(flight_ID, customer_number)
+    activate Cart
+    Cart-->>Website: Confirm flight added to cart
+    deactivate Cart
+
+    Website-->>Customer: Display cart with selected flight
+    deactivate Website
+
+    %% Step 4: Checkout
+    Customer->>Website: Proceed to checkout
+    activate Website
+
+    Website->>Cart: getCartItems(customer_number)
+    activate Cart
+    Cart-->>Website: Return cart items
+    deactivate Cart
+
+    Website-->>Customer: Display order summary & request payment info
+    deactivate Website
+
+    %% Step 5: Payment
+    Customer->>Website: Enter payment information
+    activate Website
+
+    Website->>PaymentService: processPayment(customer_number, amount, payment_info)
+    activate PaymentService
+
+    alt Payment Successful
+        PaymentService-->>Website: Payment confirmed
+        deactivate PaymentService
+
+        %% Step 6: Confirm Flight & Generate Ticket
+        Website->>FlightDB: confirmBooking(flight_ID, customer_number)
+        activate FlightDB
+        FlightDB-->>Website: Booking confirmed
+        deactivate FlightDB
+
+        Website->>TicketDB: createTicket(flight_ID, customer_number, seat_number)
+        activate TicketDB
+        TicketDB-->>Website: Return new Ticket (ticket_number, seat_number)
+        deactivate TicketDB
+
+        %% Step 7: Empty Cart
+        Website->>Cart: clearCart(customer_number)
+        activate Cart
+        Cart-->>Website: Cart cleared
+        deactivate Cart
+
+        %% Step 8: Display Confirmation
+        Website-->>Customer: Display ticket confirmation (ticket_number, flight details, seat_number)
+
+    else Payment Failed
+        PaymentService-->>Website: Payment declined
+        Website-->>Customer: Display payment error, prompt to retry
+    end
+
+    deactivate Website

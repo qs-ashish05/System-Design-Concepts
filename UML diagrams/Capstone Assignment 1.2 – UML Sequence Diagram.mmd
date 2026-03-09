@@ -1,0 +1,44 @@
+sequenceDiagram
+    actor User as : View.OnClickListener
+    participant AIA as : AddItemActivity
+    participant IL as : ItemList
+    participant D as : Dimensions
+    participant I as : Item
+
+    %% Activity starts
+    User->>AIA: onCreate(savedInstanceState)
+    activate AIA
+
+    AIA->>IL: loadItems(context)
+    activate IL
+    IL-->>AIA: 
+    deactivate IL
+
+    %% User clicks Save
+    User->>AIA: saveItem(view)
+
+    AIA->>D: new Dimensions(length_str, width_str, height_str)
+    activate D
+    D-->>AIA: dimensions
+    deactivate D
+
+    AIA->>I: new Item(title_str, maker_str, description_str, dimensions, image, null)
+    activate I
+
+    I->>I: addImage(image)
+    I->>I: setId()
+
+    I-->>AIA: item
+    deactivate I
+
+    AIA->>IL: addItem(item)
+    activate IL
+    IL-->>AIA: 
+    deactivate IL
+
+    AIA->>IL: saveItems(context)
+    activate IL
+    IL-->>AIA: 
+    deactivate IL
+
+    deactivate AIA

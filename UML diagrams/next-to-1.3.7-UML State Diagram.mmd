@@ -1,0 +1,30 @@
+stateDiagram-v2
+    [*] --> Waiting : Plane added to airport
+
+    Waiting --> Assigned : Flight assignment confirmed
+
+    Assigned --> EnRoute : Plane cleared for take-off
+    note right of Assigned
+        Plane is prepared
+        for departure
+    end note
+
+    EnRoute --> Landing : Destination reached
+    note right of EnRoute
+        Plane is actively
+        flying the route
+    end note
+
+    Landing --> PostFlightCheck : Plane successfully landed
+    note right of Landing
+        Airport prepares
+        for arrival
+    end note
+
+    PostFlightCheck --> Waiting : Plane passes inspection\n(ready for new flight)
+    PostFlightCheck --> Maintenance : Maintenance required
+
+    Maintenance --> Waiting : Repairs completed\n(plane cleared)
+    Maintenance --> Disposed : Cannot be repaired
+
+    Disposed --> [*] : Plane removed from airport
