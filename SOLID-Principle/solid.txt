@@ -1,0 +1,29 @@
+S ==> Single responsibility Principle
+O ==> Open Close Principle
+L ==> Liskov Substitution Principle
+I ==> Interface Segregation Principle
+D ==> Dependency Inversion Principle
+
+
+S ==> Single responsibility Principle
+    - A class should be resposible for one functionality only
+
+O ==> Open Close Principle
+    - a class should be open for extensions but should be closed for modifications
+
+L ==> Liskov Substitution Principle
+    - if there are two classes A and B, and if class B is extending the Class A,
+    then in our codebase whatever methods that accepts object of class A should also except and work fine for the objects of class B.
+
+    - Refer example in the code of - https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/
+
+
+I ==> Interface Segregation Principle
+    - to control the behaviours of the different classes which are extending the same parent class we should make use of the Interfaces.
+
+    - Refer the code in one.java and Two.java
+
+D ==> Dependency Inversion Principle
+    - it states that our classes should depend on interface or abstract classes instead of concrete classes and functions.
+
+    - 
