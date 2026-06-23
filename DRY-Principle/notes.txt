@@ -1,0 +1,17 @@
+1. DRY - Don't Repeat Yourself
+    - you should not repeat any part of your code in your codebase.
+
+    - it states that the knowledge that we are putting should be unique, only once, unambiguous and authoritative.
+
+    - Duplicate logics should be eliminated via the abstraction.
+
+    - 
+
+
+
+The violations of the DRY principle is refered as WET which stands for Write Everything Twice, Waste EveryOnes Time, We Enjoy Typing, etc.
+
+
+Reference Redas 
+    - https://medium.com/@jitenverma145/dry-principle-in-java-09af91c01b02
+    
