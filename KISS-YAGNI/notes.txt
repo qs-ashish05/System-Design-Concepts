@@ -1,0 +1,14 @@
+1. KISS (Keep It Simple and Stupid)
+    - based on the fact that most of the system works best if they are kept simple rather than make it complex
+
+Why?
+    - less code, takes less time to write, debug and understand
+    - Easy to modify.
+    - Simplicity is the ultimate sophistication.
+    - it seems that perfection is reached not when there is nothing left to add, but when there is nothing left to take away.
+
+
+2. YAGNI (You aren't Gonna Need It)
+    - it means dont implement something until it is neccesary.
+    - Always implement things when you need them, and never when you just foresee that you need them.
+    - 
