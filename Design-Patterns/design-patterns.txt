@@ -1,0 +1,9 @@
+1. The three main concepts of the design patterns are - 
+    a. Creation --> How or when to create the objects
+    b. Structure --> How to establish the relation between two or more objects
+    c. Behaviour --> 
+
+Also know as Creational patterns, Structural patterns, behavioral patterns.
+
+2. Creation patterns 
+    we have the concept of 
